@@ -12,7 +12,8 @@
   (with-open [rdr (jio/reader file)]
     {:file     (subs (.getCanonicalPath file) (count directory))
      :provides [(strip-js-extension (.getName file))]
-     :requires (vec (doall (process-javascript-lines (line-seq rdr))))}))
+     :requires (vec (doall (process-javascript-lines (line-seq rdr))))
+     :module-type :commonjs}))
 
 (defn process-directory [directory]
   (vec (pmap (partial process-javascript-file directory)
